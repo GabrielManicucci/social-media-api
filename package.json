@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "tsx watch src/server.ts",
-    "build": "tsup --out-dir build src/server.ts"
+    "build": "tsup src --out-dir build",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "start:prod": "node build/server.js"
   },
   "keywords": [],
   "author": "",
