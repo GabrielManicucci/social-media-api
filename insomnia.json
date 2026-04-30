@@ -165,7 +165,16 @@
       "description": "",
       "method": "GET",
       "body": {},
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "page",
+          "value": "1"
+        },
+        {
+          "name": "limit",
+          "value": "10"
+        }
+      ],
       "headers": [],
       "authentication": {},
       "metaSortKey": -1714483100000,
