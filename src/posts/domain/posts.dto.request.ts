@@ -12,3 +12,10 @@ export const commentPostSchema = z.object({
 });
 
 export type CommentPostDtoRequest = z.infer<typeof commentPostSchema>;
+
+export const listPostsQuerySchema = z.object({
+  page: z.coerce.number().positive().optional().default(1),
+  limit: z.coerce.number().positive().max(100).optional().default(10),
+});
+
+export type ListPostsQueryDto = z.infer<typeof listPostsQuerySchema>;
