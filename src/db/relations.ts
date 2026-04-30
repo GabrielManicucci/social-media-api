@@ -32,3 +32,17 @@ export const postsLikesRelations = relations(postsLikesTable, ({ one }) => ({
     references: [usersTable.user_id],
   }),
 }));
+
+export const postsCommentsRelations = relations(
+  postsCommentsTable,
+  ({ one }) => ({
+    post: one(postsTable, {
+      fields: [postsCommentsTable.post_id],
+      references: [postsTable.post_id],
+    }),
+    user: one(usersTable, {
+      fields: [postsCommentsTable.user_id],
+      references: [usersTable.user_id],
+    }),
+  })
+);

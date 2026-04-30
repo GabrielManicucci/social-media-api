@@ -1,14 +1,35 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { createPostSchema } from "../domain/posts.dto.request";
+import {
+  createPostSchema,
+  commentPostSchema,
+} from "../domain/posts.dto.request";
 import {
   createPostFactory,
   listPostsFactory,
   getPostByIdFactory,
   listTopLikedPostsFactory,
   likePostFactory,
+  commentPostFactory,
 } from "./posts.factory";
 
-export async function createPostController(request: FastifyRequest, reply: FastifyReply) {
+export async function commentPostController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  const { id } = request.params as { id: string };
+  const { description } = commentPostSchema.parse(request.body);
+  const userId = request.user.sub;
+
+  const useCase = commentPostFactory();
+  await useCase.execute(id, userId, description);
+
+  reply.status(202).send({ message: "Comment is being processed" });
+}
+
+export async function createPostController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const { title, content } = createPostSchema.parse(request.body);
   const userId = request.user.sub;
 
@@ -18,16 +39,22 @@ export async function createPostController(request: FastifyRequest, reply: Fasti
   reply.status(201).send(post);
 }
 
-export async function listPostsController(request: FastifyRequest, reply: FastifyReply) {
+export async function listPostsController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const useCase = listPostsFactory();
   const posts = await useCase.execute();
   reply.send(posts);
 }
 
-export async function getPostByIdController(request: FastifyRequest, reply: FastifyReply) {
+export async function getPostByIdController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const { id } = request.params as { id: string };
   const useCase = getPostByIdFactory();
-  
+
   try {
     const post = await useCase.execute(id);
     reply.send(post);
@@ -36,18 +63,24 @@ export async function getPostByIdController(request: FastifyRequest, reply: Fast
   }
 }
 
-export async function listTopLikedPostsController(request: FastifyRequest, reply: FastifyReply) {
+export async function listTopLikedPostsController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const useCase = listTopLikedPostsFactory();
   const posts = await useCase.execute(10);
   reply.send(posts);
 }
 
-export async function likePostController(request: FastifyRequest, reply: FastifyReply) {
+export async function likePostController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const { id } = request.params as { id: string };
   const userId = request.user.sub;
 
   const useCase = likePostFactory();
   await useCase.execute(id, userId);
 
-  reply.status(202).send({ message: "Like is being processed" });
+  reply.status(202).send({ message: "Like processing queued" });
 }

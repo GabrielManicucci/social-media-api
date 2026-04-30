@@ -1,10 +1,10 @@
 import { IPostsRepository } from "../domain/posts.interface.repository";
-import { PostWithAuthor } from "../domain/posts.dto.response";
+import { PostWithDetails } from "../domain/posts.dto.response";
 
 export class GetPostByIdUseCase {
   constructor(private readonly postsRepository: IPostsRepository) {}
 
-  async execute(id: string): Promise<PostWithAuthor> {
+  async execute(id: string): Promise<PostWithDetails> {
     const post = await this.postsRepository.findById(id);
 
     if (!post) {

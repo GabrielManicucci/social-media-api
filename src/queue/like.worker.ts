@@ -1,10 +1,9 @@
 import { Worker, Job } from "bullmq";
 import { redisConnection } from "./redis";
 import { LIKE_QUEUE_NAME } from "./like.queue";
-import { PostsRepository } from "../posts/infra/posts.repository";
-import { drizzleService } from "../db/drizzle.service";
+import { toggleLikePostFactory } from "../posts/infra/posts.factory";
 
-const postsRepository = new PostsRepository(drizzleService);
+const toggleLikePostUseCase = toggleLikePostFactory();
 
 export const likeWorker = new Worker(
   LIKE_QUEUE_NAME,
@@ -12,20 +11,12 @@ export const likeWorker = new Worker(
     const { postId, userId } = job.data;
 
     try {
-      const hasLiked = await postsRepository.checkUserLiked(postId, userId);
-      
-      if (!hasLiked) {
-        await postsRepository.addLikeRecord(postId, userId);
-        await postsRepository.incrementLikeCount(postId);
-        console.log(`[Worker] Like registered for post ${postId} by user ${userId}`);
-      } else {
-        console.log(`[Worker] User ${userId} already liked post ${postId}`);
-      }
+      await toggleLikePostUseCase.execute(postId, userId);
     } catch (error: any) {
-      if (error.code === '23505') {
+      if (error.code === "23505") {
         console.log(`[Worker] Like duplicated (concurrency) for post ${postId}`);
       } else {
-        console.error(`[Worker] Error processing like:`, error);
+        console.error(`[Worker] Error processing like toggle:`, error);
         throw error;
       }
     }
@@ -33,5 +24,5 @@ export const likeWorker = new Worker(
   {
     connection: redisConnection,
     concurrency: 10,
-  }
+  },
 );
