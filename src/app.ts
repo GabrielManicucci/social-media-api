@@ -1,17 +1,13 @@
 import fastify from "fastify";
-import cors from "@fastify/cors";
-import fastifyJwt from "@fastify/jwt";
-import { env } from "./env/env";
+import { authPlugin } from "./plugins/auth.plugin";
+import { corsPlugin } from "./plugins/cors.plugin";
 import { usersRoutes } from "./users/infra/users.routes";
+import { postsRoutes } from "./posts/infra/posts.routes";
 
 export const app = fastify();
 
-app.register(fastifyJwt, {
-  secret: env.JWT_SECRET,
-});
-
-app.register(cors, {
-  origin: "*",
-});
+app.register(authPlugin);
+app.register(corsPlugin);
 
 app.register(usersRoutes);
+app.register(postsRoutes);

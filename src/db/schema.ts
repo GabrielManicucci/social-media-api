@@ -10,9 +10,9 @@ import {
 
 export const usersTable = pgTable("users", {
   user_id: uuid("user_id").defaultRandom().primaryKey(),
-  name: varchar("name").notNull(),
-  email: varchar("email").notNull(),
-  password: varchar("password").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  password: varchar("password", { length: 255 }).notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("update_at").defaultNow().notNull(),
 });
@@ -29,7 +29,7 @@ export const usersTable = pgTable("users", {
 
 export const postsTable = pgTable("posts", {
   post_id: uuid("post_id").defaultRandom().primaryKey(),
-  title: varchar("title").notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
   content: text("content").notNull(),
   user_id: uuid("user_id")
     .references(() => usersTable.user_id)
