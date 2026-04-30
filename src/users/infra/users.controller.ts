@@ -6,9 +6,7 @@ export async function registerController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { name, email, password } = createUserSchema.parse(
-    request.body,
-  );
+  const { name, email, password } = createUserSchema.parse(request.body);
 
   try {
     const useCase = RegisterUserFactory();

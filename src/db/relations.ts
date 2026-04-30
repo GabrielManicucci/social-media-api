@@ -44,5 +44,5 @@ export const postsCommentsRelations = relations(
       fields: [postsCommentsTable.user_id],
       references: [usersTable.user_id],
     }),
-  })
+  }),
 );

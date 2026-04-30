@@ -31,7 +31,7 @@ export async function postsRoutes(app: FastifyInstance) {
     },
     createPostController,
   );
-  
+
   typedApp.post(
     "/posts/:id/like",
     {
@@ -44,7 +44,7 @@ export async function postsRoutes(app: FastifyInstance) {
     },
     likePostController,
   );
-  
+
   typedApp.post(
     "/posts/:id/comment",
     {
@@ -70,7 +70,7 @@ export async function postsRoutes(app: FastifyInstance) {
     },
     listPostsController,
   );
-  
+
   typedApp.get(
     "/posts/ranking",
     {
@@ -81,7 +81,7 @@ export async function postsRoutes(app: FastifyInstance) {
     },
     listTopLikedPostsController,
   );
-  
+
   typedApp.get(
     "/posts/:id",
     {

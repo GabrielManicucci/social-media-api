@@ -7,7 +7,11 @@ export class RedisCache {
     return JSON.parse(data) as T;
   }
 
-  async set(key: string, value: any, ttlSeconds: number = 60): Promise<void> {
+  async set(
+    key: string,
+    value: unknown,
+    ttlSeconds: number = 60,
+  ): Promise<void> {
     await redisConnection.set(key, JSON.stringify(value), "EX", ttlSeconds);
   }
 

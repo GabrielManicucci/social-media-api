@@ -60,8 +60,9 @@ export async function getPostByIdController(
   try {
     const post = await useCase.execute(id);
     reply.send(post);
-  } catch (error: any) {
-    reply.status(404).send({ message: error.message });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    reply.status(404).send({ message });
   }
 }
 

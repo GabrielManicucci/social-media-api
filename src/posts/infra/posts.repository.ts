@@ -86,8 +86,12 @@ export class PostsRepository implements IPostsRepository {
         created_at: postsTable.created_at,
         updated_at: postsTable.updated_at,
         authorName: usersTable.name,
-        likes: sql<PostLikeDetail[]>`COALESCE(${likesSubquery.likes}, '[]'::jsonb)`,
-        comments: sql<PostCommentDetail[]>`COALESCE(${commentsSubquery.comments}, '[]'::jsonb)`,
+        likes: sql<
+          PostLikeDetail[]
+        >`COALESCE(${likesSubquery.likes}, '[]'::jsonb)`,
+        comments: sql<
+          PostCommentDetail[]
+        >`COALESCE(${commentsSubquery.comments}, '[]'::jsonb)`,
       })
       .from(postsTable)
       .innerJoin(usersTable, eq(postsTable.user_id, usersTable.user_id))
@@ -111,7 +115,10 @@ export class PostsRepository implements IPostsRepository {
     return createdPost as Post;
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<PostWithDetails[]> {
+  async findAll(
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<PostWithDetails[]> {
     const offset = (page - 1) * limit;
     return await this.getBaseQuery()
       .orderBy(desc(postsTable.created_at))

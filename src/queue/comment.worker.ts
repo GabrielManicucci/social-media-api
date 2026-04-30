@@ -13,14 +13,16 @@ export const commentWorker = new Worker(
 
     try {
       await postsRepository.addComment(postId, userId, description);
-      console.log(`[Worker] Comment registered for post ${postId} by user ${userId}`);
-    } catch (error: any) {
-      console.error(`[Worker] Error processing comment:`, error);
+      console.log(
+        `[Worker] Comment registered for post ${postId} by user ${userId}`,
+      );
+    } catch (error: unknown) {
+      console.error("[Worker] Error processing comment:", error);
       throw error;
     }
   },
   {
     connection: redisConnection,
     concurrency: 10,
-  }
+  },
 );

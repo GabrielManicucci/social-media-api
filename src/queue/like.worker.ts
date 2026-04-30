@@ -12,11 +12,18 @@ export const likeWorker = new Worker(
 
     try {
       await toggleLikePostUseCase.execute(postId, userId);
-    } catch (error: any) {
-      if (error.code === "23505") {
-        console.log(`[Worker] Like duplicated (concurrency) for post ${postId}`);
+    } catch (error: unknown) {
+      if (
+        error &&
+        typeof error === "object" &&
+        "code" in error &&
+        error.code === "23505"
+      ) {
+        console.log(
+          `[Worker] Like duplicated (concurrency) for post ${postId}`,
+        );
       } else {
-        console.error(`[Worker] Error processing like toggle:`, error);
+        console.error("[Worker] Error processing like toggle:", error);
         throw error;
       }
     }

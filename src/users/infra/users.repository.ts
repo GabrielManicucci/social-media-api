@@ -12,11 +12,7 @@ export class UsersRepository implements IUsersRepostitory {
     return this.drizzleService.client;
   }
 
-  async create({
-    name,
-    email,
-    password,
-  }: CreateUserDtoRequest): Promise<User> {
+  async create({ name, email, password }: CreateUserDtoRequest): Promise<User> {
     const [createdUser] = await this.client
       .insert(usersTable)
       .values({ name, email, password })

@@ -5,12 +5,10 @@ export const createUserSchema = z.object({
   name: z
     .string()
     .meta({ example: "John Doe", description: "User's full name" }),
-  email: z
-    .email()
-    .meta({
-      example: "example@pagana.com",
-      description: "User's email address",
-    }),
+  email: z.email().meta({
+    example: "example@pagana.com",
+    description: "User's email address",
+  }),
   password: z
     .string()
     .min(6)
