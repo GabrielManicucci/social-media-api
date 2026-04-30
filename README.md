@@ -155,8 +155,10 @@ Para evoluir ainda mais esta API e transformá-la em uma rede social completa, o
 - **Sistema de Seguidores (Followers):** Permitir que usuários sigam uns aos outros, criando um feed personalizado apenas com posts de quem eles seguem.
 - **Gestão de Posts:**
   - Rota para **editar um post** existente.
-  - Rota para **deletar um post** (com exclusão em cascata ou *soft delete* de likes e comentários).
+  - Rota para **deletar um post** (com exclusão em cascata ou _soft delete_ de likes e comentários).
 - **Gestão de Usuários:** Rota para buscar os dados de perfil de um usuário específico (ex: `GET /users/:id` ou `GET /users/me`).
+- **Testes Unitários e de Integração:** Adicionar testes para as rotas e serviços.
+- **Upload de Imagens:** Permitir upload de imagens nos posts.
 
 ## Deploy da aplicação
 
