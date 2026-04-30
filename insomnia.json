@@ -1,0 +1,254 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-04-30T13:30:00.000Z",
+  "__export_source": "insomnia.desktop.app:v8.6.0",
+  "resources": [
+    {
+      "_id": "wrk_social_media",
+      "parentId": null,
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "name": "Social Media API",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "wrk_social_media",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3333",
+        "token": "seu_token_aqui"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "token"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1714483200000,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_users",
+      "parentId": "wrk_social_media",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "name": "Users",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1714483200000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_register",
+      "parentId": "fld_users",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "url": "{{ _.base_url }}/users/register",
+      "name": "Register User",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Gabriel\",\n  \"email\": \"gabriel@test.com\",\n  \"password\": \"123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1714483200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth",
+      "parentId": "fld_users",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "url": "{{ _.base_url }}/users/auth",
+      "name": "Auth User",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"gabriel@test.com\",\n  \"password\": \"123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1714483100000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_posts",
+      "parentId": "wrk_social_media",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "name": "Posts",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1714483100000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_post",
+      "parentId": "fld_posts",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "url": "{{ _.base_url }}/posts",
+      "name": "Create Post",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Meu primeiro post\",\n  \"content\": \"O conteúdo do meu primeiro post no app.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1714483200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_posts",
+      "parentId": "fld_posts",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "url": "{{ _.base_url }}/posts",
+      "name": "List Posts",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1714483100000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_ranking_posts",
+      "parentId": "fld_posts",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "url": "{{ _.base_url }}/posts/ranking",
+      "name": "Top Liked Posts (Ranking)",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1714483000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_post",
+      "parentId": "fld_posts",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "url": "{{ _.base_url }}/posts/COLE_O_ID_AQUI",
+      "name": "Get Specific Post",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1714482900000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_like_post",
+      "parentId": "fld_posts",
+      "modified": 1714483200000,
+      "created": 1714483200000,
+      "url": "{{ _.base_url }}/posts/COLE_O_ID_AQUI/like",
+      "name": "Like Post",
+      "description": "",
+      "method": "POST",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1714482800000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    }
+  ]
+}

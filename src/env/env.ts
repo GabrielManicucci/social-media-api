@@ -3,8 +3,9 @@ import z from "zod";
 const envSchema = z.object({
   PORT: z.coerce.number().default(3333),
   NODE_ENV: z.enum(["dev", "production", "test"]).default("dev"),
-  DATABASE_URL: z.string().optional(),
-  JWT_SECRET: z.string().default("supersecret"),
+  DATABASE_URL: z.string(),
+  JWT_SECRET: z.string(),
+  REDIS_URL: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);

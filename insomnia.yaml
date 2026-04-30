@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: Social Media API
+  version: 1.0.0
+  description: API testing for Social Media App
+servers:
+  - url: http://localhost:3333
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+paths:
+  /users/register:
+    post:
+      summary: Register a new user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Gabriel"
+                email:
+                  type: string
+                  example: "gabriel@test.com"
+                password:
+                  type: string
+                  example: "123456"
+      responses:
+        '201':
+          description: User created
+  /users/auth:
+    post:
+      summary: Authenticate a user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "gabriel@test.com"
+                password:
+                  type: string
+                  example: "123456"
+      responses:
+        '200':
+          description: Authenticated successfully
+  /posts:
+    get:
+      summary: List all posts
+      security: []
+      responses:
+        '200':
+          description: A list of posts
+    post:
+      summary: Create a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "My First Post"
+                content:
+                  type: string
+                  example: "This is the content of my first post!"
+      responses:
+        '201':
+          description: Post created
+  /posts/ranking:
+    get:
+      summary: Get top 10 liked posts
+      security: []
+      responses:
+        '200':
+          description: Ranking of posts
+  /posts/{id}:
+    get:
+      summary: Get a specific post by ID
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Post details
+  /posts/{id}/like:
+    post:
+      summary: Like a post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '202':
+          description: Like processing queued
