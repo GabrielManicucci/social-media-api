@@ -8,6 +8,7 @@ import { GetPostByIdUseCase } from "../application/get-post";
 import { ListTopLikedPostsUseCase } from "../application/list-top-posts";
 import { LikePostUseCase } from "../application/like-post";
 import { CommentPostUseCase } from "../application/comment-post";
+import { ToggleLikePostUseCase } from "../application/toggle-like-post";
 
 export function createPostFactory() {
   const repository = new PostsRepository(drizzleService);
@@ -35,4 +36,9 @@ export function likePostFactory() {
 
 export function commentPostFactory() {
   return new CommentPostUseCase(commentQueue);
+}
+
+export function toggleLikePostFactory() {
+  const repository = new PostsRepository(drizzleService);
+  return new ToggleLikePostUseCase(repository);
 }

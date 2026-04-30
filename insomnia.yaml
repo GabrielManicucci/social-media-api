@@ -105,7 +105,7 @@ paths:
           description: Post details
   /posts/{id}/like:
     post:
-      summary: Like a post
+      summary: Toggle Like/Unlike on a post
       parameters:
         - name: id
           in: path

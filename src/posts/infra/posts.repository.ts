@@ -136,11 +136,31 @@ export class PostsRepository implements IPostsRepository {
       .where(eq(postsTable.post_id, postId));
   }
 
+  async decrementLikeCount(postId: string): Promise<void> {
+    await this.client
+      .update(postsTable)
+      .set({
+        likes_count: sql`GREATEST(${postsTable.likes_count} - 1, 0)`,
+      })
+      .where(eq(postsTable.post_id, postId));
+  }
+
   async addLikeRecord(postId: string, userId: string): Promise<void> {
     await this.client.insert(postsLikesTable).values({
       post_id: postId,
       user_id: userId,
     });
+  }
+
+  async removeLikeRecord(postId: string, userId: string): Promise<void> {
+    await this.client
+      .delete(postsLikesTable)
+      .where(
+        and(
+          eq(postsLikesTable.post_id, postId),
+          eq(postsLikesTable.user_id, userId),
+        ),
+      );
   }
 
   async checkUserLiked(postId: string, userId: string): Promise<boolean> {

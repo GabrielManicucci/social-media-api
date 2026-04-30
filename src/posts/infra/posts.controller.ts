@@ -82,5 +82,5 @@ export async function likePostController(
   const useCase = likePostFactory();
   await useCase.execute(id, userId);
 
-  reply.status(202).send({ message: "Like is being processed" });
+  reply.status(202).send({ message: "Like processing queued" });
 }

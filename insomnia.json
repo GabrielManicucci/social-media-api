@@ -230,7 +230,7 @@
       "modified": 1714483200000,
       "created": 1714483200000,
       "url": "{{ _.base_url }}/posts/COLE_O_ID_AQUI/like",
-      "name": "Like Post",
+      "name": "Toggle Like Post",
       "description": "",
       "method": "POST",
       "body": {},
