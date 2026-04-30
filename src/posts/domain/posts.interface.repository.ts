@@ -3,7 +3,7 @@ import { Post, PostWithDetails } from "./posts.dto.response";
 
 export interface IPostsRepository {
   create: (post: CreatePostDtoRequest & { userId: string }) => Promise<Post>;
-  findAll: () => Promise<PostWithDetails[]>;
+  findAll: (page?: number, limit?: number) => Promise<PostWithDetails[]>;
   findById: (id: string) => Promise<PostWithDetails | null>;
   findTopLiked: (limit?: number) => Promise<PostWithDetails[]>;
   incrementLikeCount: (postId: string) => Promise<void>;

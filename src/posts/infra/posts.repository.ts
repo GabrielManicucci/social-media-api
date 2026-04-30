@@ -111,8 +111,12 @@ export class PostsRepository implements IPostsRepository {
     return createdPost as Post;
   }
 
-  async findAll(): Promise<PostWithDetails[]> {
-    return await this.getBaseQuery().orderBy(desc(postsTable.created_at));
+  async findAll(page: number = 1, limit: number = 10): Promise<PostWithDetails[]> {
+    const offset = (page - 1) * limit;
+    return await this.getBaseQuery()
+      .orderBy(desc(postsTable.created_at))
+      .limit(limit)
+      .offset(offset);
   }
 
   async findById(id: string): Promise<PostWithDetails | null> {
