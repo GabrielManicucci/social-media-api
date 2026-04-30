@@ -1,29 +1,34 @@
 import { relations } from "drizzle-orm";
-import { posts, postsLikes, users, postsComments } from "./schema";
+import {
+  postsTable,
+  postsLikesTable,
+  usersTable,
+  postsCommentsTable,
+} from "./schema";
 
-export const usersRelations = relations(users, ({ many }) => ({
-  posts: many(posts),
-  likes: many(postsLikes),
-  comments: many(postsComments),
+export const usersRelations = relations(usersTable, ({ many }) => ({
+  posts: many(postsTable),
+  likes: many(postsLikesTable),
+  comments: many(postsCommentsTable),
   //   follows: many(follows),
 }));
 
-export const postsRelations = relations(posts, ({ one, many }) => ({
-  author: one(users, {
-    fields: [posts.user_id],
-    references: [users.id],
+export const postsRelations = relations(postsTable, ({ one, many }) => ({
+  author: one(usersTable, {
+    fields: [postsTable.user_id],
+    references: [usersTable.user_id],
   }),
-  likes: many(postsLikes),
-  comments: many(postsComments),
+  likes: many(postsLikesTable),
+  comments: many(postsCommentsTable),
 }));
 
-export const postsLikesRelations = relations(postsLikes, ({ one }) => ({
-  post: one(posts, {
-    fields: [postsLikes.post_id],
-    references: [posts.id],
+export const postsLikesRelations = relations(postsLikesTable, ({ one }) => ({
+  post: one(postsTable, {
+    fields: [postsLikesTable.post_id],
+    references: [postsTable.post_id],
   }),
-  user: one(users, {
-    fields: [postsLikes.user_id],
-    references: [users.id],
+  user: one(usersTable, {
+    fields: [postsLikesTable.user_id],
+    references: [usersTable.user_id],
   }),
 }));
