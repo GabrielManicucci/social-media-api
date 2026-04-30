@@ -1,11 +1,13 @@
 import { PostsRepository } from "./posts.repository";
 import { drizzleService } from "../../db/drizzle.service";
 import { likeQueue } from "../../queue/like.queue";
+import { commentQueue } from "../../queue/comment.queue";
 import { CreatePostUseCase } from "../application/create-post";
 import { ListPostsUseCase } from "../application/list-posts";
 import { GetPostByIdUseCase } from "../application/get-post";
 import { ListTopLikedPostsUseCase } from "../application/list-top-posts";
 import { LikePostUseCase } from "../application/like-post";
+import { CommentPostUseCase } from "../application/comment-post";
 
 export function createPostFactory() {
   const repository = new PostsRepository(drizzleService);
@@ -29,4 +31,8 @@ export function listTopLikedPostsFactory() {
 
 export function likePostFactory() {
   return new LikePostUseCase(likeQueue);
+}
+
+export function commentPostFactory() {
+  return new CommentPostUseCase(commentQueue);
 }

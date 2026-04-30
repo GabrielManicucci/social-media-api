@@ -116,3 +116,26 @@ paths:
       responses:
         '202':
           description: Like processing queued
+  /posts/{id}/comment:
+    post:
+      summary: Comment on a post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: "Great post!"
+      responses:
+        '202':
+          description: Comment processing queued

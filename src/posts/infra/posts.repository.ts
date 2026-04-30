@@ -156,4 +156,16 @@ export class PostsRepository implements IPostsRepository {
 
     return !!like;
   }
+
+  async addComment(
+    postId: string,
+    userId: string,
+    description: string,
+  ): Promise<void> {
+    await this.client.insert(postsCommentsTable).values({
+      post_id: postId,
+      user_id: userId,
+      description,
+    });
+  }
 }

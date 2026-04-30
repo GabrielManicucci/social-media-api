@@ -9,4 +9,9 @@ export interface IPostsRepository {
   incrementLikeCount: (postId: string) => Promise<void>;
   addLikeRecord: (postId: string, userId: string) => Promise<void>;
   checkUserLiked: (postId: string, userId: string) => Promise<boolean>;
+  addComment: (
+    postId: string,
+    userId: string,
+    description: string,
+  ) => Promise<void>;
 }

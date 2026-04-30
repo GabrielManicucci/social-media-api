@@ -6,6 +6,7 @@ import {
   getPostByIdController,
   listTopLikedPostsController,
   likePostController,
+  commentPostController,
 } from "./posts.controller";
 import { AuthenticatePlugin } from "../../plugins/auth.plugin";
 
@@ -19,6 +20,11 @@ export async function postsRoutes(app: FastifyInstance) {
     "/posts/:id/like",
     { onRequest: [AuthenticatePlugin] },
     likePostController,
+  );
+  app.post(
+    "/posts/:id/comment",
+    { onRequest: [AuthenticatePlugin] },
+    commentPostController,
   );
 
   app.get("/posts", listPostsController);
