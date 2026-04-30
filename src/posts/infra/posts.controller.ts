@@ -2,6 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import {
   createPostSchema,
   commentPostSchema,
+  listPostsQuerySchema,
 } from "../domain/posts.dto.request";
 import {
   createPostFactory,
@@ -43,8 +44,9 @@ export async function listPostsController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
+  const { page, limit } = listPostsQuerySchema.parse(request.query);
   const useCase = listPostsFactory();
-  const posts = await useCase.execute();
+  const posts = await useCase.execute(page, limit);
   reply.send(posts);
 }
 
