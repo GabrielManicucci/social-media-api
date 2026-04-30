@@ -61,6 +61,17 @@ paths:
     get:
       summary: List all posts
       security: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: A list of posts
