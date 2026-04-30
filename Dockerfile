@@ -14,4 +14,4 @@ RUN pnpm build
 
 EXPOSE 3333
 
-CMD ["node", "build/server.js"]
+CMD ["sh", "-c", "pnpm db:migrate && node build/server.js"]
